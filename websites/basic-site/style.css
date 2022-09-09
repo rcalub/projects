@@ -1,0 +1,104 @@
+/*#282A3E, #419D78, #E0A458, #FFDBB5, #9F2042*/
+body {
+    background-image: url("./media/background-images/vintage-wallpaper.png");
+    margin: 0;
+}
+
+h1, h2, h3, p, li{
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.smoothie-article {
+    width: 31%;
+    padding: 1%;
+    margin: 0 auto;
+    background-color: #e0a458;
+    display: inline-block;
+}
+
+nav {
+    background-color: #434666;
+    display: block;
+    padding: 10px 20px;
+    text-align: right;
+}
+
+nav li {
+	display:inline;
+    font-size: 20px;
+    text-align: center;
+	padding: 2px;
+	margin: 0px 10px;
+}
+
+nav li:hover {
+    background-color: #419d78;
+    border: #e0a458;
+    border-radius: 5px;
+}
+
+.jumbotron {
+    background-image: url("https://images.unsplash.com/photo-1580691155297-c6dfa3ca61c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    background-size: cover;
+    height: 500px;
+    font-size: 35px;
+    margin-top: 0px;
+    padding-top: 80px;
+    margin-bottom: 80px;
+}
+
+main h1{
+    margin: 0px auto;
+    text-transform: uppercase;
+    margin: 5px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+.smoothie-title, .smoothie-description {
+    text-align: center;
+}
+
+.btn-main {
+    background-color: #434666;
+    color: white;
+    margin-top: 30px;
+    display: block;
+    width: 200px;
+    margin: auto;
+    margin-top: 30px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.btn-main:hover {
+    background-color: #419d78;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+}
+
+#popular-smoothies {
+    margin: 1%;
+}
+
+#popular-smoothies h2 {
+    text-align: center;
+}
+
+#small-logo {
+    display: inline;
+    padding: 0px;
+    height: 120px;
+    width: 120px;
+    object-fit: none;
+}
