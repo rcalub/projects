@@ -1,0 +1,10 @@
+canvas {
+    border: 1px solid black;
+}
+
+#cube-input-div {
+    display: block;
+    border: 1px solid black;
+    height: 125px;
+    width: 200px;
+}
