@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rubik's Cube Solver Test</title>
     <link rel="stylesheet" href="./style.css">
-    <script type="text/javascript" src="./cube.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
   </head>
-  <body onload="setCanvas()">
+  <body onload="Canvas.setCurCanvas(15)">
     <h1>A 2-Dimensional Render of a Cube</h1>
-    <button onclick="renderSolvedCube(15)">Show Solved Cube</button>
-    <button onclick="resetCube()">Reset Cube</button>
+    <button onclick="RubiksCube.displaySolvedCube()">Show Solved Cube</button>
+    <button onclick="curCanvas.clearCanvas()">Reset Cube</button>
     <canvas id="tutorial">
         Unable to render canvas.
     </canvas>
@@ -21,6 +21,6 @@
     <input reset type="text" id="cube-input-left" placeholder="Left Face Of Cube">
     <input reset type="text" id="cube-input-bottom" placeholder="Bottom Face Of Cube">
     <input reset type="text" id="cube-input-back" placeholder="Back Face Of Cube">
-    <button onclick="getCustomCube(15)">Render Custom Cube</button>
+    <button onclick="RubiksCube.displayCustomCube()">Render Custom Cube</button>
   </body>
 </html>
