@@ -31,12 +31,22 @@
       </div>
     </div>
     <div id="rotation-button-div">
-      <button onclick="" style="background-color: red;" class="interact-button">F Rotation</button>
-      <button onclick="" style="background-color: orange;" class="interact-button">B Rotation</button>
-      <button onclick="curCanvas.onDisplay.getRotationU()" style="background-color: white;" class="interact-button">U Rotation</button>
-      <button onclick="curCanvas.onDisplay.getRotationD()" style="background-color: yellow;" class="interact-button">D Rotation</button>
-      <button onclick="" style="background-color: green;" class="interact-button">L Rotation</button>
-      <button onclick="" style="background-color: blue;" class="interact-button">R Rotation</button>
+      <div id="rotation-button-div-cw">
+        <button onclick="curCanvas.onDisplay.getRotationF()" style="background-color: red;" class="interact-button">F Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationB()" style="background-color: orange;" class="interact-button">B Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationU()" style="background-color: white;" class="interact-button">U Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationD()" style="background-color: yellow;" class="interact-button">D Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationL()" style="background-color: green;" class="interact-button">L Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationR()" style="background-color: blue;" class="interact-button">R Rotation</button>
+      </div>
+      <div id="rotation-button-div-ccw">
+        <button onclick="curCanvas.onDisplay.getRotationFPrime()" style="background-color: red;" class="interact-button">F' Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationBPrime()" style="background-color: orange;" class="interact-button">B' Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationUPrime()" style="background-color: white;" class="interact-button">U' Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationDPrime()" style="background-color: yellow;" class="interact-button">D' Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationLPrime()" style="background-color: green;" class="interact-button">L' Rotation</button>
+        <button onclick="curCanvas.onDisplay.getRotationRPrime()" style="background-color: blue;" class="interact-button">R' Rotation</button>
+      </div>
     </div>
   </body>
 </html>

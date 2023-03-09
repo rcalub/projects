@@ -245,6 +245,26 @@ class RubiksCube {
     newCube.addCubeToDisplay();
   }
 
+  getRotationUPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[u, 0], [u, 2], [u, 8], [u, 6]]));
+    p.push(RubiksCube.permutation_to_array([[u, 1], [u, 5], [u, 7], [u, 3]]));
+    p.push(RubiksCube.permutation_to_array([[f, 0], [l, 0], [b, 0], [r, 0]]));
+    p.push(RubiksCube.permutation_to_array([[f, 1], [l, 1], [b, 1], [r, 1]]));
+    p.push(RubiksCube.permutation_to_array([[f, 2], [l, 2], [b, 2], [r, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
   getRotationD() {
     const oldCube = curCanvas.onDisplay.createCopy();
     const newCube = curCanvas.onDisplay.createCopy();
@@ -257,7 +277,187 @@ class RubiksCube {
     p.push(RubiksCube.permutation_to_array([[f, 8], [l, 8], [b, 8], [r, 8]]));
     for (let cycle of p) {
       for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationDPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[d, 0], [d, 2], [d, 8], [d, 6]]));
+    p.push(RubiksCube.permutation_to_array([[d, 1], [d, 5], [d, 7], [d, 3]]));
+    p.push(RubiksCube.permutation_to_array([[f, 6], [l, 6], [b, 6], [r, 6]]));
+    p.push(RubiksCube.permutation_to_array([[f, 7], [l, 7], [b, 7], [r, 7]]));
+    p.push(RubiksCube.permutation_to_array([[f, 8], [l, 8], [b, 8], [r, 8]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
         newCube.setPieceColor(perm[1], perm[0], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationF() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[f, 0], [f, 2], [f, 8], [f, 6]]));
+    p.push(RubiksCube.permutation_to_array([[f, 1], [f, 5], [f, 7], [f, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 6], [r, 0], [d, 2], [l, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 7], [r, 3], [d, 1], [l, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 8], [r, 6], [d, 0], [l, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[1], perm[0], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationFPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[f, 0], [f, 2], [f, 8], [f, 6]]));
+    p.push(RubiksCube.permutation_to_array([[f, 1], [f, 5], [f, 7], [f, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 6], [r, 0], [d, 2], [l, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 7], [r, 3], [d, 1], [l, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 8], [r, 6], [d, 0], [l, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationB() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[b, 0], [b, 2], [b, 8], [b, 6]]));
+    p.push(RubiksCube.permutation_to_array([[b, 1], [b, 5], [b, 7], [b, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 2], [l, 0], [d, 6], [r, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 1], [l, 3], [d, 7], [r, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 0], [l, 6], [d, 8], [r, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[1], perm[0], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationBPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[b, 0], [b, 2], [b, 8], [b, 6]]));
+    p.push(RubiksCube.permutation_to_array([[b, 1], [b, 5], [b, 7], [b, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 2], [l, 0], [d, 6], [r, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 1], [l, 3], [d, 7], [r, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 0], [l, 6], [d, 8], [r, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationL() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[l, 0], [l, 2], [l, 8], [l, 6]]));
+    p.push(RubiksCube.permutation_to_array([[l, 1], [l, 5], [l, 7], [l, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 0], [f, 0], [d, 0], [b, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 3], [f, 3], [d, 3], [b, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 6], [f, 6], [d, 6], [b, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[1], perm[0], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationLPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[l, 0], [l, 2], [l, 8], [l, 6]]));
+    p.push(RubiksCube.permutation_to_array([[l, 1], [l, 5], [l, 7], [l, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 0], [f, 0], [d, 0], [b, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 3], [f, 3], [d, 3], [b, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 6], [f, 6], [d, 6], [b, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationR() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[r, 0], [r, 2], [r, 8], [r, 6]]));
+    p.push(RubiksCube.permutation_to_array([[r, 1], [r, 5], [r, 7], [r, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 8], [b, 0], [d, 8], [f, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 5], [b, 3], [d, 5], [f, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 2], [b, 6], [d, 2], [f, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[1], perm[0], oldCube);
+      }
+    }
+
+    curCanvas.clearCanvas();
+    newCube.addCubeToDisplay();
+  }
+
+  getRotationRPrime() {
+    const oldCube = curCanvas.onDisplay.createCopy();
+    const newCube = curCanvas.onDisplay.createCopy();
+    const [f, b, r, l, u, d] = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    let p = []
+    p.push(RubiksCube.permutation_to_array([[r, 0], [r, 2], [r, 8], [r, 6]]));
+    p.push(RubiksCube.permutation_to_array([[r, 1], [r, 5], [r, 7], [r, 3]]));
+    p.push(RubiksCube.permutation_to_array([[u, 8], [b, 0], [d, 8], [f, 8]]));
+    p.push(RubiksCube.permutation_to_array([[u, 5], [b, 3], [d, 5], [f, 5]]));
+    p.push(RubiksCube.permutation_to_array([[u, 2], [b, 6], [d, 2], [f, 2]]));
+    for (let cycle of p) {
+      for (let perm of cycle) {
+        newCube.setPieceColor(perm[0], perm[1], oldCube);
       }
     }
 
