@@ -15,7 +15,7 @@ class Canvas{
         this.canvas.height *= 3;
         const [w, h] = [this.canvas.width, this.canvas.height];
         this.canvas.style.width = w + 'px'; this.canvas.style.height = h + 'px';
-        this.ctx.scale(3, 3)
+        this.ctx.scale(3, 3);
     };
 
     static setCurCanvas(sc) {
@@ -199,148 +199,30 @@ class RubiksCube {
         newCube.addCubeToDisplay();
     }
 
-    // Move functions
-
-    
-
-    // Front face move
-    fRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = [fOld[6], fOld[3], fOld[0], fOld[7], fOld[4], fOld[1], fOld[8], fOld[5], fOld[2]];
-        const bNew = bOld;
-        const rNew = [uOld[6], rOld[1], rOld[2], uOld[7], rOld[4], rOld[5], uOld[8], rOld[7], rOld[8]];
-        const lNew = [lOld[0], lOld[1], dOld[0], lOld[3], lOld[4], dOld[1], lOld[6], lOld[7], dOld[2]];
-        const uNew = [uOld[0], uOld[1], uOld[2], uOld[3], uOld[4], uOld[5], lOld[2], lOld[5], lOld[8]];
-        const dNew = [rOld[0], rOld[3], rOld[6], dOld[3], dOld[4], dOld[5], dOld[6], dOld[7], dOld[8]];
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
+    getRotationU() {
+        let newCube
+        this.addCubeToDisplay();
     }
 
-    bRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = fOld;
-        const bNew = [bOld[6], bOld[3], bOld[0], bOld[7], bOld[4], bOld[1], bOld[8], bOld[5], bOld[2]];
-        const rNew = rOld;
-        const lNew = lOld;
-        const uNew = uOld;
-        const dNew = dOld;
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
-    }
-
-    uRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = [rOld[0], rOld[1], rOld[2], fOld[3], fOld[4], fOld[5], fOld[6], fOld[7], fOld[8]];
-        const bNew = [lOld[0], lOld[1], lOld[2], bOld[3], bOld[4], bOld[5], bOld[6], bOld[7], bOld[8]];
-        const rNew = [bOld[0], bOld[1], bOld[2], rOld[3], rOld[4], rOld[5], rOld[6], rOld[7], rOld[8]];
-        const lNew = [fOld[0], fOld[1], fOld[2], lOld[3], lOld[4], lOld[5], lOld[6], lOld[7], lOld[8]];
-        const uNew = [uOld[6], uOld[3], uOld[0], uOld[7], uOld[4], uOld[1], uOld[8],uOld[5], uOld[2]];
-        const dNew = dOld;
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
-    }
-
-    dRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = fOld;
-        const bNew = bOld;
-        const rNew = rOld;
-        const lNew = lOld;
-        const uNew = uOld;
-        const dNew = [dOld[6], dOld[3], dOld[0], dOld[7], dOld[4], dOld[1], dOld[8], dOld[5], dOld[2]];
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
-    }
-
-    lRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = fOld;
-        const bNew = bOld;
-        const rNew = rOld;
-        const lNew = [lOld[6], lOld[3], lOld[0], lOld[7], lOld[4], lOld[1], lOld[8], lOld[5], lOld[2]];
-        const uNew = uOld;
-        const dNew = dOld;
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
-    }
-
-    rRotation() {
-        const fOld = this.front;
-        const bOld = this.back;
-        const rOld = this.right;
-        const lOld = this.left;
-        const uOld = this.top;
-        const dOld = this.bottom;
-
-        const fNew = fOld;
-        const bNew = bOld;
-        const rNew = [rOld[6], rOld[3], rOld[0], rOld[7], rOld[4], rOld[1], rOld[8], rOld[5], rOld[2]];
-        const lNew = lOld;
-        const uNew = uOld;
-        const dNew = dOld;
-
-        const newCube = new RubiksCube(fNew, bNew, rNew, lNew, uNew, dNew);
-    
-        curCanvas.clearCanvas();
-        newCube.addCubeToDisplay();
-    }
     
     getPiece(refFace, idx) {
         return this[refFace][idx];
     }
 
-// [L0, F0, R0, B0] =>
-    permute(cycleArray, oldCube, newCube) {
-        p1 = cycleArray[0].split('');
-        p2 = cycleArray[0].split('');
-        p3 = cycleArray[0].split('');
-        p4 = cycleArray[0].split('');
+    // pieceIndex: ['face': string, index: int]
+    setPieceColor(pieceIndex, newColor) {
+        pieceIndex
+    }
 
-        oldCube.getPiece(p1[0], p1[1])
+    // [L0, F0, R0, B0] => [[L0, F0], [F0, R0], [R0, B0], [B0, L0]]
+    static permutation_to_array(permArray) {
+        let sentToArray = [];
+
+        for (let i = 0; i < permArray.length - 1; i++) {
+            sentToArray.push([permArray[i], permArray[i + 1]]);
+        }
+        sentToArray.push([permArray[permArray.length - 1], permArray[0]]);
+
+        return sentToArray;
     }
 }

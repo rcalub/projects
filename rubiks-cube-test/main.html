@@ -9,18 +9,27 @@
     <script type="text/javascript" src="./index.js"></script>
   </head>
   <body onload="Canvas.setCurCanvas(15)">
-    <h1>A 2-Dimensional Render of a Cube</h1>
-    <button onclick="RubiksCube.displaySolvedCube()">Show Solved Cube</button>
-    <button onclick="curCanvas.clearCanvas()">Reset Cube</button>
-    <canvas id="tutorial">
-        Unable to render canvas.
-    </canvas>
-    <input reset type="text" id="cube-input-front" placeholder="Front Face Of Cube">
-    <input reset type="text" id="cube-input-right" placeholder="Right Face Of Cube">
-    <input reset type="text" id="cube-input-top" placeholder="Top Face Of Cube">
-    <input reset type="text" id="cube-input-left" placeholder="Left Face Of Cube">
-    <input reset type="text" id="cube-input-bottom" placeholder="Bottom Face Of Cube">
-    <input reset type="text" id="cube-input-back" placeholder="Back Face Of Cube">
-    <button onclick="RubiksCube.displayCustomCube()">Render Custom Cube</button>
+    <div id="main-div">
+      <div id="canvas-div">
+        <h1>A 2-Dimensional Render of a Cube</h1>
+        <button onclick="RubiksCube.displaySolvedCube()">Show Solved Cube</button>
+        <button onclick="curCanvas.clearCanvas()">Reset Cube</button>
+        <canvas id="tutorial">
+            Unable to render canvas.
+        </canvas>
+      </div>
+      <div id="cube-input-div">
+        <input reset type="text" id="cube-input-front" placeholder="Front Face Of Cube">
+        <input reset type="text" id="cube-input-right" placeholder="Right Face Of Cube">
+        <input reset type="text" id="cube-input-top" placeholder="Top Face Of Cube">
+        <input reset type="text" id="cube-input-left" placeholder="Left Face Of Cube">
+        <input reset type="text" id="cube-input-bottom" placeholder="Bottom Face Of Cube">
+        <input reset type="text" id="cube-input-back" placeholder="Back Face Of Cube">
+        <button onclick="RubiksCube.displayCustomCube()">Render Custom Cube</button>
+      </div>
+      <div>
+        
+      </div>
+    </div>
   </body>
 </html>
