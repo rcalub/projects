@@ -311,21 +311,6 @@ class RubiksCube {
     return newCube;
   }
 
-  doMove(faceMove) {
-    const oldCube = this.createCopy();
-    const newCube = this.createCopy();
-    let p;
-
-    switch (faceMove) {
-      case value:
-        
-        break;
-    
-      default:
-        break;
-    }
-  }
-
   getRotationF() {
     const oldCube = this.createCopy();
     const newCube = this.createCopy();
@@ -564,13 +549,22 @@ class RubiksCube {
     }
 
   scrambleCube() {
-    const numMoves = Math.floor(Math.random() * 10);
+    const numMoves = Math.floor(Math.random() * 30) + 1;
     return this.doRandomMoves(numMoves);
   }
   
   doRandomMove(numMoves) {
     if (numMoves == 0) {
       return;
+    }
+    let randomMove = Math.floor(Math.random()*18)
+    switch (key) {
+      case 0:
+        this.getRotationB();
+        break;
+      default:
+        
+        break;
     }
   }
 }
