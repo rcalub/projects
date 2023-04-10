@@ -548,23 +548,63 @@ class RubiksCube {
       );
     }
 
-  scrambleCube() {
-    const numMoves = Math.floor(Math.random() * 30) + 1;
-    return this.doRandomMoves(numMoves);
+  static scrambleCube() {
+    if (!curCanvas.onDisplay) {
+      alert("No cube on display, cannot shuffle");
+      return;
+    }
+    const numMoves = Math.floor(Math.random() * 20) + 20;
+    RubiksCube.doRandomMove(numMoves);
+    return;
   }
   
-  doRandomMove(numMoves) {
+  static doRandomMove(numMoves) {
     if (numMoves == 0) {
       return;
     }
-    let randomMove = Math.floor(Math.random()*18)
-    switch (key) {
-      case 0:
-        this.getRotationB();
+    let randomMove = Math.floor(Math.random()*6)
+    switch (randomMove) {
+      case (0):
+        setTimeout(() => curCanvas.onDisplay.getRotationF(), 200);
+        break;
+      case (1):
+        setTimeout(() => curCanvas.onDisplay.getRotationB(), 200);
+        break;
+      case (2):
+        setTimeout(() => curCanvas.onDisplay.getRotationU(), 200);
+        break;
+      case (3):
+        setTimeout(() => curCanvas.onDisplay.getRotationD(), 200);
+        break;
+      case (4):
+        setTimeout(() => curCanvas.onDisplay.getRotationL(), 200);
+        break;
+      case (5):
+        setTimeout(() => curCanvas.onDisplay.getRotationR(), 200);
         break;
       default:
-        
+        console.log('no move done');
         break;
     }
+
+    
+    RubiksCube.doRandomMove(numMoves - 1);
+  }
+
+  getEdgeByColor(colorOne, colorTwo) {
+    let edgeFace;
+    let edgeIndex;
+
+    for (let face in this) {
+      console.log(face);
+    }
+  }
+
+  static formCross() {
+    // Does red, white edge
+    const [face, index] = curCanvas.findEdge('white', 'red')
+    // Does blue, white edge
+    // Does green, white edge
+    // Does orange, white edge
   }
 }
