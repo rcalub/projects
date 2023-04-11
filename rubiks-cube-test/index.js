@@ -1,10 +1,23 @@
+
+// BETTER COLORS
+// const [R, O, G, Y, B, W, Bl] = [
+//   "#B90000",
+//   "#FF5900",
+//   "#009B48",
+//   "#FFD500",
+//   "#0045AD",
+//   "#FFFFFF",
+//   "black",
+// ];
+
+// FOR TESTING
 const [R, O, G, Y, B, W, Bl] = [
-  "#B90000",
-  "#FF5900",
-  "#009B48",
-  "#FFD500",
-  "#0045AD",
-  "#FFFFFF",
+  "red",
+  "orange",
+  "green",
+  "yellow",
+  "blue",
+  "white",
   "black",
 ];
 
@@ -591,18 +604,82 @@ class RubiksCube {
     RubiksCube.doRandomMove(numMoves - 1);
   }
 
-  getEdgeByColor(colorOne, colorTwo) {
-    let edgeFace;
-    let edgeIndex;
+  // Given a face and index, returns the respective connected edge
+  // (References U and D edges on U and D, and horizontal F and B edges of F and B faces)
+  getEdgeConnection(face, index) {
+    if (face == 'top') {
+      if (index == 1) return this.getPiece(['back', 1]);
+      else if (index == 3) return this.getPiece(['left', 1]);
+      else if (index == 5) return this.getPiece(['right', 1]);
+      else if (index == 7) return this.getPiece(['front', 1]);
+    }
+    else if (face == 'bottom') {
+      if (index == 1) return this.getPiece(['front', 7]);
+      else if (index == 3) return this.getPiece(['left', 7]);
+      else if (index == 5) return this.getPiece(['right', 7]);
+      else if (index == 7) return this.getPiece(['back', 7]);
+    }
+    else if (face == 'front') {
+      if (index == 3) return this.getPiece(['left', 5]);
+      else if (index == 5) return this.getPiece(['right', 3]);
+    }
+    else if (face == 'back') {
+      if (index == 3) return this.getPiece(['right', 5]);
+      else if (index == 5) return this.getPiece(['left', 3]);
+    }
+  }
 
+  // CAN BE IMPROVED TO BE MORE READABLE
+  // returns the index of the U or D face, F or B face.
+  getEdgeByColor(colorOne, colorTwo) {
     for (let face in this) {
-      console.log(face);
+      if (face == 'top' || face == 'bottom') {
+        for (let i = 0; i < this[face].length; i++) {
+          if (i % 2 == 1) {
+            if (this[face][i] == colorOne) {
+              if (this.getEdgeConnection(face, i) == colorTwo) {
+                console.log(`${face} at ${i}: ${this[face][i]}`);
+                return [face, i];
+              }
+            }
+            else if (this[face][i] == colorTwo) {
+              if (this.getEdgeConnection(face, i) == colorOne) {
+                console.log(`${face} at ${i}: ${this[face][i]}`);
+                return [face, i];
+              }
+            }
+          }
+        }
+      }
+      else if (face == 'front' || face == 'back') {
+        for (let i = 0; i < this[face].length; i++) {
+          if (i == 3 || i == 5) {
+            if (this[face][i] == colorOne) {
+              if (this.getEdgeConnection(face, i) == colorTwo) {
+                console.log(`${face} at ${i}: ${this[face][i]}`);
+                return [face, i];
+              }
+            }
+            else if (this[face][i] == colorTwo) {
+              if (this.getEdgeConnection(face, i) == colorOne) {
+                console.log(`${face} at ${i}: ${this[face][i]}`);
+                return [face, i];
+              }
+            }
+          }
+        }
+      }
     }
   }
 
   static formCross() {
     // Does red, white edge
-    const [face, index] = curCanvas.findEdge('white', 'red')
+    const [faceWR, indexWR] = curCanvas.getEdgeByColor('white', 'red');
+    if (faceWR == 'front' && indexWR == 3) {
+      curCanvas.onDisplay.getRotationL();
+      curCanvas.onDisplay.getRotationD();
+      curCanvas.onDisplay.getRotationLPrime();
+    }
     // Does blue, white edge
     // Does green, white edge
     // Does orange, white edge
