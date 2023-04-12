@@ -672,14 +672,73 @@ class RubiksCube {
     }
   }
 
+
   static formCross() {
     // Does red, white edge
-    const [faceWR, indexWR] = curCanvas.getEdgeByColor('white', 'red');
-    if (faceWR == 'front' && indexWR == 3) {
-      curCanvas.onDisplay.getRotationL();
-      curCanvas.onDisplay.getRotationD();
-      curCanvas.onDisplay.getRotationLPrime();
+    const [faceWR, indexWR] = curCanvas.onDisplay.getEdgeByColor('white', 'red');
+    if (faceWR == 'top') {
+      if (indexWR == 1) {
+        curCanvas.onDisplay.getRotationB();
+        curCanvas.onDisplay.getRotationB();
+        curCanvas.onDisplay.getRotationD();
+        curCanvas.onDisplay.getRotationD();
+      }
+      else if (indexWR == 3) {
+        curCanvas.onDisplay.getRotationL();
+        curCanvas.onDisplay.getRotationL();
+        curCanvas.onDisplay.getRotationD();
+      }
+      else if (indexWR == 5) {
+        curCanvas.onDisplay.getRotationR();
+        curCanvas.onDisplay.getRotationR();
+        curCanvas.onDisplay.getRotationDPrime();
+      }
+      else if (indexWR == 7) {
+        curCanvas.onDisplay.getRotationF();
+        curCanvas.onDisplay.getRotationF();
+      }
     }
+    else if (faceWR == 'bottom') {
+      if (indexWR == 1) {
+        pass;
+      }
+      else if (indexWR == 3) {
+        curCanvas.onDisplay.getRotationD();
+      }
+      else if (indexWR == 5) {
+        curCanvas.onDisplay.getRotationDPrime();
+      }
+      else if (indexWR == 7) {
+        curCanvas.onDisplay.getRotationD();
+        curCanvas.onDisplay.getRotationD();
+      }
+    }
+    else if (faceWR == 'front') {
+      if (indexWR == 3) {
+        curCanvas.onDisplay.getRotationL();
+        curCanvas.onDisplay.getRotationB();
+        curCanvas.onDisplay.getRotationLPrime();
+      }
+      else if (indexWR == 5) {
+        curCanvas.onDisplay.getRotationRPrime();
+        curCanvas.onDisplay.getRotationBPrime();
+        curCanvas.onDisplay.getRotationR();
+      }
+    }
+
+    else if (faceWR == 'back') {
+      if (indexWR == 3) {
+        curCanvas.onDisplay.getRotationR();
+        curCanvas.onDisplay.getRotationBPrime();
+        curCanvas.onDisplay.getRotationRPrime();
+      }
+      else if (indexWR == 5) {
+        curCanvas.onDisplay.getRotationLPrime();
+        curCanvas.onDisplay.getRotationB();
+        curCanvas.onDisplay.getRotationL();
+      }
+    }
+
     // Does blue, white edge
     // Does green, white edge
     // Does orange, white edge
