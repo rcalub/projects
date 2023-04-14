@@ -21,6 +21,9 @@ const [R, O, G, Y, B, W, Bl] = [
   "black",
 ];
 
+// SPEED OF SOLVER
+const sleepInterval = 10000;
+
 let curCanvas;
 
 class Canvas {
@@ -578,22 +581,22 @@ class RubiksCube {
     let randomMove = Math.floor(Math.random()*6)
     switch (randomMove) {
       case (0):
-        setTimeout(() => curCanvas.onDisplay.getRotationF(), 200);
+        curCanvas.onDisplay.getRotationF();
         break;
       case (1):
-        setTimeout(() => curCanvas.onDisplay.getRotationB(), 200);
+        curCanvas.onDisplay.getRotationB();
         break;
       case (2):
-        setTimeout(() => curCanvas.onDisplay.getRotationU(), 200);
+        curCanvas.onDisplay.getRotationU();
         break;
       case (3):
-        setTimeout(() => curCanvas.onDisplay.getRotationD(), 200);
+        curCanvas.onDisplay.getRotationD();
         break;
       case (4):
-        setTimeout(() => curCanvas.onDisplay.getRotationL(), 200);
+        curCanvas.onDisplay.getRotationL();
         break;
       case (5):
-        setTimeout(() => curCanvas.onDisplay.getRotationR(), 200);
+        curCanvas.onDisplay.getRotationR();
         break;
       default:
         console.log('no move done');
@@ -638,13 +641,11 @@ class RubiksCube {
           if (i % 2 == 1) {
             if (this[face][i] == colorOne) {
               if (this.getEdgeConnection(face, i) == colorTwo) {
-                console.log(`${face} at ${i}: ${this[face][i]}`);
                 return [face, i];
               }
             }
             else if (this[face][i] == colorTwo) {
               if (this.getEdgeConnection(face, i) == colorOne) {
-                console.log(`${face} at ${i}: ${this[face][i]}`);
                 return [face, i];
               }
             }
@@ -656,13 +657,11 @@ class RubiksCube {
           if (i == 3 || i == 5) {
             if (this[face][i] == colorOne) {
               if (this.getEdgeConnection(face, i) == colorTwo) {
-                console.log(`${face} at ${i}: ${this[face][i]}`);
                 return [face, i];
               }
             }
             else if (this[face][i] == colorTwo) {
               if (this.getEdgeConnection(face, i) == colorOne) {
-                console.log(`${face} at ${i}: ${this[face][i]}`);
                 return [face, i];
               }
             }
@@ -672,75 +671,257 @@ class RubiksCube {
     }
   }
 
+  getCornerConnection(face, index) {
+    if (face == 'top') {
+      if (index == 0) return [['left', 0], ['back', 2]];
+      else if (index == 2) return [['back', 0], ['right', 2]];
+      else if (index == 6) return [['front', 0], ['left', 2]];
+      else if (index == 8) return [['right', 0], ['front', 2]];
+    }
+    else if (face == 'bottom') {
+      if (index == 0) return [['left', 8], ['front', 6]];
+      else if (index == 2) return [['front', 8], ['right', 6]];
+      else if (index == 6) return [['back', 8], ['left', 6]];
+      else if (index == 8) return [['right', 8], ['back', 6]];
+    }
+  }
+
+  findCornerByColor(color1, color2, color3) {
+    // check top face
+    for (let i = 0; i < 9; i++) {
+      if (i == 0 || i == 2 || i == 6 || i == 8 ) {
+        if (this.checkCornerMatching(color1, color2, color3, ['top', i])) {
+          return ['top', i];
+        }
+        if (this.checkCornerMatching(color1, color2, color3, ['bottom', i])) {
+          return ['bottom', i];
+        }
+      }
+    }
+  }
+
+  checkCornerMatching(color1, color2, color3, cornerPiece) {
+    const corner1 = this.getPiece(cornerPiece);
+    const [corner2, corner3] = this.getCornerConnection(cornerPiece[0], cornerPiece[1]);
+    return ((corner1 == color1 && corner2 == color2 && corner3 == color3) ||
+            (corner1 == color2 && corner2 == color3 && corner3 == color1) ||
+            (corner1 == color3 && corner2 == color1 && corner3 == color2))
+  }
+
+  checkEdgeOrientation(face, userIndex) {
+    let index = parseInt(userIndex);
+    if (index % 2 == 0) {
+      alert("Invalid index for edge");
+      return false;
+    }
+    if (face == 'top') {
+      return (this[face][index] == W);
+    }
+    else if (face == 'bottom') {
+      return (this[face][index] == Y);
+    }
+    else if (face == 'front') {
+      return (this[face][index] == R);
+    }
+    else if (face == 'back') {
+      return (this[face][index] == O);
+    }
+    else {
+      alert("Invalid face given");
+    }
+  }
 
   static formCross() {
     // Does red, white edge
-    const [faceWR, indexWR] = curCanvas.onDisplay.getEdgeByColor('white', 'red');
+    const [faceWR, indexWR] = curCanvas.onDisplay.getEdgeByColor(W, R);
     if (faceWR == 'top') {
-      if (indexWR == 1) {
-        curCanvas.onDisplay.getRotationB();
-        curCanvas.onDisplay.getRotationB();
-        curCanvas.onDisplay.getRotationD();
-        curCanvas.onDisplay.getRotationD();
-      }
-      else if (indexWR == 3) {
-        curCanvas.onDisplay.getRotationL();
-        curCanvas.onDisplay.getRotationL();
-        curCanvas.onDisplay.getRotationD();
-      }
-      else if (indexWR == 5) {
-        curCanvas.onDisplay.getRotationR();
-        curCanvas.onDisplay.getRotationR();
-        curCanvas.onDisplay.getRotationDPrime();
-      }
-      else if (indexWR == 7) {
-        curCanvas.onDisplay.getRotationF();
-        curCanvas.onDisplay.getRotationF();
-      }
+      if (indexWR == 1) RubiksCube.doMovesFromArray(['B2', 'D2']);
+      else if (indexWR == 3) RubiksCube.doMovesFromArray(['L2', 'D']);
+      else if (indexWR == 5) RubiksCube.doMovesFromArray(['R2', 'D\'']);
+      else if (indexWR == 7) RubiksCube.doMovesFromArray(['F2']);
     }
     else if (faceWR == 'bottom') {
-      if (indexWR == 1) {
-        pass;
-      }
-      else if (indexWR == 3) {
-        curCanvas.onDisplay.getRotationD();
-      }
-      else if (indexWR == 5) {
-        curCanvas.onDisplay.getRotationDPrime();
-      }
-      else if (indexWR == 7) {
-        curCanvas.onDisplay.getRotationD();
-        curCanvas.onDisplay.getRotationD();
-      }
+      if (indexWR == 3) RubiksCube.doMovesFromArray(['D']);
+      else if (indexWR == 5) RubiksCube.doMovesFromArray(['D\'']);
+      else if (indexWR == 7) RubiksCube.doMovesFromArray(['D2']);
     }
     else if (faceWR == 'front') {
-      if (indexWR == 3) {
-        curCanvas.onDisplay.getRotationL();
-        curCanvas.onDisplay.getRotationB();
-        curCanvas.onDisplay.getRotationLPrime();
-      }
-      else if (indexWR == 5) {
-        curCanvas.onDisplay.getRotationRPrime();
-        curCanvas.onDisplay.getRotationBPrime();
-        curCanvas.onDisplay.getRotationR();
-      }
+      if (indexWR == 3) RubiksCube.doMovesFromArray(['L', 'D', 'L\'']);
+      else if (indexWR == 5) RubiksCube.doMovesFromArray(['R\'', 'D\'', 'R']);
     }
-
     else if (faceWR == 'back') {
-      if (indexWR == 3) {
-        curCanvas.onDisplay.getRotationR();
-        curCanvas.onDisplay.getRotationBPrime();
-        curCanvas.onDisplay.getRotationRPrime();
-      }
-      else if (indexWR == 5) {
-        curCanvas.onDisplay.getRotationLPrime();
-        curCanvas.onDisplay.getRotationB();
-        curCanvas.onDisplay.getRotationL();
+      if (indexWR == 3) RubiksCube.doMovesFromArray(['R', 'D\'', 'R\'']);
+      else if (indexWR == 5) RubiksCube.doMovesFromArray(['L\'', 'D', 'L']);
+    }
+    RubiksCube.doMovesFromArray(['F2']);
+    if (!curCanvas.onDisplay.checkEdgeOrientation('top', 7)) {
+      RubiksCube.doMovesFromArray(['F', 'U\'', 'R', 'U']);
+    }
+    // Does blue, white edge
+    const [faceWB, indexWB] = curCanvas.onDisplay.getEdgeByColor(W, B);
+    if (faceWB == 'top') {
+      if (indexWB == 1) RubiksCube.doMovesFromArray(['B2', 'D\'']);
+      else if (indexWB == 3) RubiksCube.doMovesFromArray(['L2', 'D2']);
+      else if (indexWB == 5) RubiksCube.doMovesFromArray(['R2']);
+      else if (indexWB == 7) RubiksCube.doMovesFromArray(['F2', 'D']);
+    }
+    else if (faceWB == 'bottom') {
+      if (indexWB == 1) RubiksCube.doMovesFromArray(['D']);
+      else if (indexWB == 3) RubiksCube.doMovesFromArray(['D2']);
+      else if (indexWB == 7) RubiksCube.doMovesFromArray(['D\'']);
+    }
+    else if (faceWB == 'front') {
+      if (indexWB == 3) RubiksCube.doMovesFromArray(['L', 'D2', 'L\'']);
+      else if (indexWB == 5) RubiksCube.doMovesFromArray(['R\'', 'D\'', 'R', 'D']);
+    }
+    else if (faceWB == 'back') {
+      if (indexWB == 3) RubiksCube.doMovesFromArray(['R', 'D\'', 'R\'', 'D']);
+      else if (indexWB == 5) RubiksCube.doMovesFromArray(['L\'', 'D2', 'L']);
+    }
+    RubiksCube.doMovesFromArray(['R2']);
+    if (!curCanvas.onDisplay.checkEdgeOrientation('top', 5)) {
+      RubiksCube.doMovesFromArray(['R', 'U\'', 'B', 'U']);
+    }
+    // Does green, white edge
+    const [faceWG, indexWG] = curCanvas.onDisplay.getEdgeByColor(W, G);
+    if (faceWG == 'top') {
+      if (indexWG == 1) RubiksCube.doMovesFromArray(['B2', 'D']);
+      else if (indexWG == 3) RubiksCube.doMovesFromArray(['L2']);
+      else if (indexWG == 5) RubiksCube.doMovesFromArray(['R2', 'D2']);
+      else if (indexWG == 7) RubiksCube.doMovesFromArray(['F2', 'D\'']);
+    }
+    else if (faceWG == 'bottom') {
+      if (indexWG == 1) RubiksCube.doMovesFromArray(['D\'']);
+      else if (indexWG == 5) RubiksCube.doMovesFromArray(['D2']);
+      else if (indexWG == 7) RubiksCube.doMovesFromArray(['D']);
+    }
+    else if (faceWG == 'front') {
+      if (indexWG == 3) RubiksCube.doMovesFromArray(['L', 'D', 'L\'', 'D\'']);
+      else if (indexWG == 5) RubiksCube.doMovesFromArray(['R\'', 'D2', 'R']);
+    }
+    else if (faceWG == 'back') {
+      if (indexWG == 3) RubiksCube.doMovesFromArray(['R', 'D2', 'R\'']);
+      else if (indexWG == 5) RubiksCube.doMovesFromArray(['L\'', 'D\'', 'L', 'D']);
+    }
+    RubiksCube.doMovesFromArray(['L2']);
+    if (!curCanvas.onDisplay.checkEdgeOrientation('top', 3)) {
+      RubiksCube.doMovesFromArray(['L', 'U\'', 'F', 'U']);
+    }
+    // Does orange, white edge
+    const [faceWO, indexWO] = curCanvas.onDisplay.getEdgeByColor(W, O);
+    if (faceWO == 'top') {
+      if (indexWO == 1) RubiksCube.doMovesFromArray(['B2']);
+      else if (indexWO == 3) RubiksCube.doMovesFromArray(['L2', 'D']);
+      else if (indexWO == 5) RubiksCube.doMovesFromArray(['R2', 'D\'']);
+      else if (indexWO == 7) RubiksCube.doMovesFromArray(['F2', 'D2']);
+    }
+    else if (faceWO == 'bottom') {
+      if (indexWO == 1) RubiksCube.doMovesFromArray(['D2']);
+      else if (indexWO == 3) RubiksCube.doMovesFromArray(['D\'']);
+      else if (indexWO == 5) RubiksCube.doMovesFromArray(['D']);
+    }
+    else if (faceWO == 'front') {
+      if (indexWO == 3) RubiksCube.doMovesFromArray(['L', 'D\'', 'L\'']);
+      else if (indexWO == 5) RubiksCube.doMovesFromArray(['R\'', 'D', 'R']);
+    }
+    else if (faceWO == 'back') {
+      if (indexWO == 3) RubiksCube.doMovesFromArray(['R', 'D', 'R\'']);
+      else if (indexWO == 5) RubiksCube.doMovesFromArray(['L\'', 'D\'', 'L']);
+    }
+    RubiksCube.doMovesFromArray(['B2']);
+    if (!curCanvas.onDisplay.checkEdgeOrientation('top', 1)) {
+      RubiksCube.doMovesFromArray(['B', 'U\'', 'L', 'U']);
+    }
+  }
+
+  static permuteWhiteCorners() {
+    // Do WGO Corner
+    console.log(curCanvas.onDisplay.findCornerByColor(W, G, O))
+    // Do WOB Corner
+    console.log(curCanvas.onDisplay.findCornerByColor(W, O, B));
+    // Do WBR Corner
+    console.log(curCanvas.onDisplay.findCornerByColor(W, B, R));
+    // Do WRG Corner
+    console.log(curCanvas.onDisplay.findCornerByColor(W, R, G));
+  }
+
+  static rotateWhiteCorners() {
+
+  }
+  
+  static solveCube() {
+    RubiksCube.formCross();
+    RubiksCube.permuteWhiteCorners();
+  }
+
+  static doMovesFromArray(movesArray) {
+    for (let move of movesArray) {
+      switch (move) {
+        case 'L':
+          curCanvas.onDisplay.getRotationL();
+          break;
+        case 'L2':
+          curCanvas.onDisplay.getRotationL();
+          curCanvas.onDisplay.getRotationL();
+          break;
+        case 'L\'':
+          curCanvas.onDisplay.getRotationLPrime();
+          break;
+        case 'R':
+          curCanvas.onDisplay.getRotationR();
+          break;
+        case 'R2':
+          curCanvas.onDisplay.getRotationR();
+          curCanvas.onDisplay.getRotationR();
+          break;
+        case 'R\'':
+          curCanvas.onDisplay.getRotationRPrime();
+          break;
+        case 'U':
+          curCanvas.onDisplay.getRotationU();
+          break;
+        case 'U2':
+          curCanvas.onDisplay.getRotationU();
+          curCanvas.onDisplay.getRotationU();
+          break;
+        case 'U\'':
+          curCanvas.onDisplay.getRotationUPrime();
+          break;
+        case 'D':
+          curCanvas.onDisplay.getRotationD();
+          break;
+        case 'D2':
+          curCanvas.onDisplay.getRotationD();
+          curCanvas.onDisplay.getRotationD();
+          break;
+        case 'D\'':
+          curCanvas.onDisplay.getRotationDPrime();
+          break;
+        case 'F':
+          curCanvas.onDisplay.getRotationF();
+          break;
+        case 'F2':
+          curCanvas.onDisplay.getRotationF();
+          curCanvas.onDisplay.getRotationF();
+          break;
+        case 'F\'':
+          curCanvas.onDisplay.getRotationFPrime();
+          break;
+        case 'B':
+          curCanvas.onDisplay.getRotationB();
+          break;
+        case 'B2':
+          curCanvas.onDisplay.getRotationB();
+          curCanvas.onDisplay.getRotationB();
+          break;
+        case 'B\'':
+          curCanvas.onDisplay.getRotationBPrime();
+          break;
+        default:
+          alert(`Invalid move: ${move}`);
+          return;
+          break;
       }
     }
-
-    // Does blue, white edge
-    // Does green, white edge
-    // Does orange, white edge
   }
 }
